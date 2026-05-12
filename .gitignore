@@ -1,2 +1,12 @@
 paintings/original
 paintings/128
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.ipynb_checkpoints/
+experiments/checkpoints/
+experiments/gifs/*.gif
+webapp/saved_model/*.pt
+webapp/saved_model/*.pth
+webapp/saved_model/metadata.json

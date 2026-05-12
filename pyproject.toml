@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "the-kiss-nca"
+version = "0.1.0"
+description = "Conditional Neural Cellular Automata training pipeline for Klimt-inspired low-resolution paintings."
+requires-python = ">=3.10"
+dependencies = [
+  "torch>=2.2",
+  "numpy>=1.24",
+  "Pillow>=10.0",
+  "PyYAML>=6.0",
+  "matplotlib>=3.8",
+  "imageio>=2.34",
+  "tqdm>=4.66",
+  "pandas>=2.0",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
