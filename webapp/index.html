@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The K.I.S.S. Automata</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <section id="homeView" class="view home-view">
+      <div class="hero-card">
+        <p class="eyebrow">Neural Cellular Automata</p>
+        <h1>The K.I.S.S.</h1>
+        <p class="subtitle">
+          A live browser simulation of a learned cellular automaton growing and refining
+          a reconstruction of <em>The Kiss</em> from a single seed cell.
+        </p>
+        <button id="startBtn" class="primary-btn">Start “The K.I.S.S.” Automata</button>
+      </div>
+    </section>
+
+    <section id="simView" class="view sim-view hidden">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow small">The K.I.S.S.</p>
+          <h2>Live Automata Simulation</h2>
+        </div>
+        <button id="backBtn" class="ghost-btn">Home</button>
+      </header>
+
+      <section class="model-picker">
+        <div class="model-card" data-model="weak">
+          <h3>Weak model</h3>
+          <p>Early grow checkpoint. It usually shows the rough structure and failure modes.</p>
+          <code>pipeline/1_grow/kiss_log/the_kiss/1200.weights.h5</code>
+        </div>
+        <div class="model-card recommended" data-model="good">
+          <h3>Good model</h3>
+          <p>Improved model. Better reconstruction and persistence.</p>
+          <code>pipeline/2_improve/kiss_log/1500.weights.h5</code>
+        </div>
+      </section>
+
+      <section class="stage-grid">
+        <div class="canvas-card">
+          <div class="canvas-header">
+            <div>
+              <h3 id="activeModelTitle">Select a model</h3>
+              <p id="statusText">Choose Weak or Good to load weights.</p>
+            </div>
+            <div class="step-counter"><span id="stepCounter">0</span> steps</div>
+          </div>
+
+          <canvas id="ncaCanvas" width="64" height="64"></canvas>
+        </div>
+
+        <aside class="controls-card">
+          <h3>Controls</h3>
+
+          <div class="button-row">
+            <button id="playBtn" class="primary-btn" disabled>Play</button>
+            <button id="pauseBtn" class="ghost-btn" disabled>Pause</button>
+            <button id="restartBtn" class="ghost-btn" disabled>Restart</button>
+          </div>
+
+          <label class="control-label" for="speedSelect">Velocity</label>
+          <select id="speedSelect">
+            <option value="1">1 step/frame</option>
+            <option value="2">2 steps/frame</option>
+            <option value="4" selected>4 steps/frame</option>
+            <option value="8">8 steps/frame</option>
+            <option value="16">16 steps/frame</option>
+            <option value="32">32 steps/frame</option>
+          </select>
+
+          <label class="control-label" for="fireRateSelect">Fire rate</label>
+          <select id="fireRateSelect">
+            <option value="0.5" selected>0.5 — training default</option>
+            <option value="0.7">0.7</option>
+            <option value="1.0">1.0 — deterministic</option>
+          </select>
+
+          <button id="zoomBtn" class="zoom-btn" disabled>Zoom on faces</button>
+
+          <div class="notes">
+            <p><strong>Seed:</strong> exactly the same convention as training: one central living cell, channels 3…N set to 1.</p>
+            <p><strong>Zoom:</strong> keeps the current grown image as state and switches to the zoom-transition model.</p>
+          </div>
+        </aside>
+      </section>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
