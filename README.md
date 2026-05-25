@@ -82,14 +82,7 @@ The-KISS/
 │   └── 3_transition/
 │       └── transition notebook and zoom-transition checkpoints
 │
-├── docs/ or webapp/
-│   └── static GitHub Pages web application
-│
-├── reports/
-│   └── LaTeX report and figures
-│
-├── assets/
-│   └── target images, generated previews, videos, and figures
+├── TheKISS_report.pdf
 │
 └── README.md
 ```
@@ -194,16 +187,6 @@ This makes the system more robust and less dependent on perfectly synchronous up
 
 ---
 
-## Living Mask
-
-A living mask is used to prevent uncontrolled activation of dead areas.
-
-A cell is considered alive if it or one of its neighbors has sufficient alpha value.  
-Cells outside living regions are suppressed.
-
-This keeps the automaton growth localized and stable.
-
----
 
 # Model 1: Grow
 
@@ -494,55 +477,8 @@ The web app allows the user to:
 - activate the zoom transition model;
 - observe the NCA evolve in real time.
 
-The app is fully static and can be hosted on GitHub Pages.
-
 ---
 
-## Running the Web App Locally
-
-Because the app loads model files with JavaScript, it is better to run it from a local server instead of opening `index.html` directly.
-
-From the web app folder:
-
-```bash
-python -m http.server 8000
-```
-
-Then open:
-
-```text
-http://localhost:8000
-```
-
----
-
-## Converting Checkpoints for the Web App
-
-The browser cannot directly load TensorFlow `.weights.h5` files.
-
-The repository includes a converter script that exports checkpoint weights to a JSON format readable by the JavaScript simulation.
-
-Example commands:
-
-```bash
-python tools/convert_h5_to_web.py --input "..\pipeline\1_grow\kiss_log\the_kiss\1200.weights.h5" --output "assets\models\weak.json" --name "Weak model" --target-size 64 --channel-n 16
-```
-
-```bash
-python tools/convert_h5_to_web.py --input "..\pipeline\2_improve\kiss_log\1500.weights.h5" --output "assets\models\good.json" --name "Good model" --target-size 64 --channel-n 16
-```
-
-```bash
-python tools/convert_h5_to_web.py --input "..\pipeline\3_transition\the_kiss_zoom_transition_from_old_pool\1500.weights.h5" --output "assets\models\zoom.json" --name "Zoom model" --target-size 64 --channel-n 16
-```
-
-If the output folder does not exist:
-
-```bash
-mkdir assets\models
-```
-
----
 
 ## Training Notebooks
 
@@ -591,26 +527,6 @@ Each notebook includes:
 
 ---
 
-## Outputs
-
-The training notebooks produce:
-
-```text
-*.weights.h5      trained TensorFlow/Keras weights
-*.json            exported model graph or web model format
-loss_log.npy      loss history
-*.png             checkpoint visualizations
-*.mp4             rollout videos
-```
-
-The report appendix includes examples of:
-
-- model outputs at selected epochs;
-- loss curves;
-- fine-tuning curves;
-- transition training curves.
-
----
 
 ## Main Lessons
 
@@ -635,48 +551,6 @@ In practice:
 
 ---
 
-## Limitations
-
-The current evaluation is mainly qualitative.
-
-Future work should include:
-
-- MSE;
-- SSIM;
-- MS-SSIM;
-- long-rollout stability metrics;
-- seed-growth success rate;
-- ablation studies on loss terms;
-- ablations on rollout length and fire rate;
-- comparison with alternative architectures;
-- more target images;
-- conditional models that can switch between growth, refinement, and transition.
-
----
-
-## Future Work
-
-Possible extensions:
-
-1. **Single conditional model**  
-   Train one model that can switch between grow, improve, and zoom behavior using a control signal.
-
-2. **Higher resolution targets**  
-   Extend from 64×64 to 128×128 or larger.
-
-3. **Interactive drawing or damage**  
-   Allow the user to damage the image in the browser and observe regeneration.
-
-4. **Quantitative evaluation**  
-   Measure image quality and dynamical stability.
-
-5. **Multiple artistic targets**  
-   Train a family of NCAs on different artworks or styles.
-
-6. **PDE-inspired dynamics**  
-   Explore connections between NCAs and learned local PDE solvers, such as reaction-diffusion systems.
-
----
 
 ## References
 
@@ -699,23 +573,10 @@ The project is based on and inspired by:
 
 ---
 
-## Statement on the Use of AI
-
-AI-based tools were used to support the project in the following ways:
-
-- initially finding bibliography and related work;
-- refactoring some core code functions;
-- suggesting ideas to improve the project, including losses and hyperparameter tuning;
-- summarizing original papers;
-- rephrasing and shortening the report;
-- building the full static web application.
-
-All code, experiments, results, and final claims were reviewed and remain the author's responsibility.
-
----
 
 ## Author
 
 **Michele Magrini**  
+Applied Mathematics
 Deep Learning and Applied AI 2026  
 Sapienza University of Rome
